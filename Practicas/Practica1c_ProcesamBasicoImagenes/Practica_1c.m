@@ -83,5 +83,123 @@ disp("Contraste: " + contraste);
 % Ejercicio 2
 % -------------------------------------------------------------------------
 
+% Imagen de mayor brillo
+imagenMayorBrillo = zeros(N, M, "uint8");
 
+% Imagen de menor brillo
+imagenMenorBrillo = zeros(N, M, "uint8");
 
+% Utilizamos un valor de desplazamiento del
+% histograma de 50 y del mismo tipo uint8
+desplazamiento = uint8(50);
+
+% Construimos ambas imagenes
+for fila=1:N
+    for columna=1:M
+        pixelMayorBrillo = areaInteres(fila, columna) ...
+            + desplazamiento;
+
+        % Ya que se utiliza la clase uint8 no será necesario comprobar que
+        % el valor del pixel con mayor brillo supere 255, esto es debido a
+        % que uint8 tiene como valor máximo 255
+        imagenMayorBrillo(fila, columna) = pixelMayorBrillo;
+
+        pixelMenorBrillo = areaInteres(fila, columna) ...
+            - desplazamiento;
+
+        % Ya que se utiliza la clase uint8 no será necesario comprobar que
+        % el valor del pixel con menor brillo sea menor que 0, ya que uint8
+        % son enteros sin signo, por lo que el nº mínimo es 0.
+        imagenMenorBrillo(fila, columna) = pixelMenorBrillo;
+    end
+end
+
+%figure, imshow(areaInteres);
+%title("Imagen Normal");
+disp("Brillo imagen normal: " + calcularBrillo(areaInteres));
+
+%figure, imshow(imagenMayorBrillo);
+%title("Imagen Mayor Brillo");
+disp("Brillo imagen mayor brillo: " + calcularBrillo(imagenMayorBrillo));
+
+%figure, imshow(imagenMenorBrillo);
+%title("Imagen Menor Brillo");
+disp("Brillo imagen menor brillo: " + calcularBrillo(imagenMenorBrillo));
+
+% Ejercicio 3
+% -------------------------------------------------------------------------
+
+imagenMayorContraste = zeros(N, M, "uint8");
+imagenMenorContraste = zeros(N, M, "uint8");
+
+valorGrisMaximo = max(areaInteres(:));
+valorGrisMinimo = min(areaInteres(:));
+
+disp("Nivel gris maximo: " + valorGrisMaximo);
+disp("Nivel gris minimo: " + valorGrisMinimo);
+
+valorGrisMaximoMayorContraste = 255;
+valorGrisMinimoMayorContraste = 0;
+
+valorGrisMaximoMenorContraste = double(valorGrisMaximo) - 50;
+valorGrisMinimoMenorContraste = double(valorGrisMinimo) + 50;
+
+for fila=1:N
+    for columna=1:M
+        pixelMayorContraste = valorGrisMinimoMayorContraste ...
+            + ((valorGrisMaximoMayorContraste - valorGrisMinimoMayorContraste) ...
+            / (double(valorGrisMaximo) - double(valorGrisMinimo))) * ...
+            (double(areaInteres(fila, columna)) - double(valorGrisMinimo));
+
+        imagenMayorContraste(fila, columna) = uint8(pixelMayorContraste);
+
+        pixelMenorContraste = valorGrisMinimoMenorContraste ...
+            + ((valorGrisMaximoMenorContraste - valorGrisMinimoMenorContraste) ...
+            / (double(valorGrisMaximo) - double(valorGrisMinimo))) * ...
+            (double(areaInteres(fila, columna)) - double(valorGrisMinimo));
+
+        imagenMenorContraste(fila, columna) = uint8(pixelMenorContraste);
+    end
+end
+
+%figure, imshow(areaInteres);
+%title("Imagen Normal");
+disp("Contraste imagen normal: " + calcularContraste(areaInteres));
+
+%figure, imshow(imagenMayorContraste);
+%title("Imagen Mayor Contraste");
+disp("Contraste imagen mayor contraste: " + calcularContraste(imagenMayorContraste));
+
+%figure, imshow(imagenMenorContraste);
+%title("Imagen Menor Contraste");
+disp("Contraste imagen menor contraste: " + calcularContraste(imagenMenorContraste));
+
+% Ejercicio 4
+% -------------------------------------------------------------------------
+
+help imfilter;
+
+% Ejercicio 5
+% -------------------------------------------------------------------------
+
+HP = ones(5,5)/25;
+HL = [-1 -1 -1 ; -1 8 -1 ; -1 -1 -1];
+
+imagenNormalFiltroHP = imfilter(areaInteres, HP);
+imagenNormalFiltroHL = imfilter(areaInteres, HL);
+
+figure, imshow(areaInteres);
+title("Imagen Normal");
+
+figure, imshow(imagenNormalFiltroHP);
+title("Imagen con filtro HP");
+
+figure, imshow(imagenNormalFiltroHL);
+title("Imagen con filtro HL");
+
+HP_Alternativa = ones(9,9)/81;
+
+imagenNormalFiltroHPAlternativo = imfilter(areaInteres, HP_Alternativa);
+
+figure, imshow(imagenNormalFiltroHPAlternativo);
+title("Imagen con filtro HP Alternativo");
