@@ -292,7 +292,3 @@ title("Histograma P3 Sigmoide Q2");
 
 % Ejercicio 3
 % -------------------------------------------------------------------------
-
-h = imhist(imagenP3);
-
-funcion_HistAcum(h);
