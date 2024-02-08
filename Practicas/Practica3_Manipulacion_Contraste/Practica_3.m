@@ -292,3 +292,28 @@ title("Histograma P3 Sigmoide Q2");
 
 % Ejercicio 3
 % -------------------------------------------------------------------------
+
+% En cuanto a la amplitud de contraste, para la expansion del histograma
+% se observa que como los valores máximos y mínimos de gris ya son 0 y 255
+% el brillo y el contraste permanecen iguales, la imagen generada queda
+% inalterada con respecto a la original.
+
+% No obstante en cuanto a la contracción del histograma con valores
+% predefinidos (50) si se observa que el brillo ha aumentado de forma
+% considerable, mientras que el contraste apenas se ha reducido.
+
+% Con las funciones cuadrada y cúbica el brillo y el contraste llegan
+% a disminuir, aunque con mas incidencia en el brillo. Se observa como
+% la imagen por ende tiende a oscurecerse, los pixeles oscuros disminuyen
+% su contraste, mientras que el de los claros aumenta.
+
+% Aplicando raíz cuadrada y cúbica se observa como la imagen tiende a
+% aclararse, su brillo aumenta sustancialmente, mientras que el contraste
+% disminuye.
+
+% Con las funciones sigmoides, la de tipo q1 hace que se reduzca el brillo
+% y aumente algo el contraste, se favorecen los valores intermedios
+% respecto de los más claros y oscuros.
+
+% La de tipo q2 favorece valores extremos respecto a los intermedios, por
+% lo que el brillo aumenta considerablemente, y el contraste disminuye.

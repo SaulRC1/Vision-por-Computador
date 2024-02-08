@@ -6,13 +6,13 @@ imhist(imagenP3);
 
 h = calcularHistograma(imagenP3);
 
-figure, histogram(h);
-title("Histograma P3 funcion propia");
+%figure, histogram(h);
+%title("Histograma P3 funcion propia");
 
 histogramaAcumulado = funcion_HistAcum(h);
 
-figure, histogram(histogramaAcumulado);
-title("Histograma acumulado P3");
+%figure, histogram(histogramaAcumulado);
+%title("Histograma acumulado P3");
 
 %lengthHistograma = length(histogramaAcumulado);
 
@@ -91,3 +91,133 @@ end
 
 figure, imshow(imagenP3EcualizadaZonal);
 title("Imagen P3 Ecualización Zonal");
+
+% Ejercicio 9
+% -------------------------------------------------------------------------
+numFilVent = filas/3;
+numColVent = columnas/3;
+
+disp("num filas ventana: " + numFilVent);
+disp("num columnas ventana: " + numColVent);
+
+tic;
+imagenP3EcualizadaLocalSimetrica = funcion_EcualizacionLocal(imagenP3, ...
+    numFilVent, numColVent, "symmetric");
+tiempoEcualizacionLocal = toc; 
+
+imagenP3EcualizadaLocalReplicada = funcion_EcualizacionLocal(imagenP3, ...
+    numFilVent, numColVent, "replicate");
+imagenP3EcualizadaLocalCeros = funcion_EcualizacionLocal(imagenP3, ...
+    numFilVent, numColVent, "zeros");
+
+figure, 
+subplot(2, 2, 1);
+imshow(imagenP3);
+title("Imagen P3 Original");
+
+subplot(2, 2, 2);
+imshow(imagenP3EcualizadaLocalSimetrica);
+title("Imagen P3 Ecualización Local Simétrica");
+
+subplot(2, 2, 3);
+imshow(imagenP3EcualizadaLocalReplicada);
+title("Imagen P3 Ecualización Local Replicada");
+
+subplot(2, 2, 4);
+imshow(imagenP3EcualizadaLocalCeros);
+title("Imagen P3 Ecualización Local Ceros");
+
+% Ejercicio 11
+% -------------------------------------------------------------------------
+tic;
+imagenP3EcualizadaLocal5x5 = funcion_EcualizacionLocalVentana5x5(imagenP3);
+tiempoEcualizacion5x5 = toc;
+
+figure, imshow(imagenP3EcualizadaLocal5x5);
+title("Imagen P3 Ecualizada Local 5x5");
+
+disp("Tiempo computacional ecualizacion 5x5: " + ...
+    tiempoEcualizacion5x5 + " segundos");
+
+disp("Tiempo computacional ecualizacion local: " + ...
+    tiempoEcualizacionLocal + " segundos");
+
+% Ambas eficiencias computacionales son muy distintas,
+% la ejecutada en ventanas 5x5 tarda 5 veces menos.
+
+% Ejercicio 12
+% -------------------------------------------------------------------------
+
+brilloP3= calcularBrillo(imagenP3);
+contrasteP3 = calcularContraste(imagenP3);
+disp("Brillo P3: " + brilloP3);
+disp("Contraste P3: " + contrasteP3);
+
+brilloP3Ecualizada = calcularBrillo(imagenP3Ecualizada);
+contrasteP3Ecualizada = calcularContraste(imagenP3Ecualizada);
+disp("Brillo P3 Ecualizada: " + brilloP3Ecualizada);
+disp("Contraste P3 Ecualizada: " + contrasteP3Ecualizada);
+
+brilloP3EcualizadaZonal = calcularBrillo(imagenP3EcualizadaZonal);
+contrasteP3EcualizadaZonal = calcularContraste(imagenP3EcualizadaZonal);
+disp("Brillo P3 Ecualizada Zonal: " + brilloP3EcualizadaZonal);
+disp("Contraste P3 Ecualizada Zonal: " + contrasteP3EcualizadaZonal);
+
+brilloP3EcualizadaLocalSimetrica = calcularBrillo(imagenP3EcualizadaLocalSimetrica);
+contrasteP3EcualizadaLocalSimetrica = calcularContraste(imagenP3EcualizadaLocalSimetrica);
+disp("Brillo P3 Ecualizada Local Simétrica: " + brilloP3EcualizadaLocalSimetrica);
+disp("Contraste P3 Ecualizada Local Simétrica: " + contrasteP3EcualizadaLocalSimetrica);
+
+brilloP3EcualizadaLocalReplicada = calcularBrillo(imagenP3EcualizadaLocalReplicada);
+contrasteP3EcualizadaLocalReplicada = calcularContraste(imagenP3EcualizadaLocalReplicada);
+disp("Brillo P3 Ecualizada Local Replicada: " + brilloP3EcualizadaLocalReplicada);
+disp("Contraste P3 Ecualizada Local Replicada: " + contrasteP3EcualizadaLocalReplicada);
+
+brilloP3EcualizadaLocalCeros = calcularBrillo(imagenP3EcualizadaLocalCeros);
+contrasteP3EcualizadaLocalCeros = calcularContraste(imagenP3EcualizadaLocalCeros);
+disp("Brillo P3 Ecualizada Local Ceros: " + brilloP3EcualizadaLocalCeros);
+disp("Contraste P3 Ecualizada Local Ceros: " + contrasteP3EcualizadaLocalCeros);
+
+brilloP3EcualizadaLocal5x5 = calcularBrillo(imagenP3EcualizadaLocal5x5);
+contrasteP3EcualizadaLocal5x5 = calcularContraste(imagenP3EcualizadaLocal5x5);
+disp("Brillo P3 Ecualizada Local 5x5: " + brilloP3EcualizadaLocal5x5);
+disp("Contraste P3 Ecualizada Local 5x5: " + contrasteP3EcualizadaLocal5x5);
+
+
+figure;
+
+subplot(2, 3, 1);
+imhist(imagenP3Ecualizada);
+title('Histograma Imagen P3 Ecualizada');
+
+subplot(2, 3, 2);
+imhist(imagenP3EcualizadaZonal);
+title('Histograma Imagen P3 Ecualizada Zonal');
+
+subplot(2, 3, 3);
+imhist(imagenP3EcualizadaLocalSimetrica);
+title('Histograma Imagen P3 Ecualizada Local Simétrica');
+
+subplot(2, 3, 4);
+imhist(imagenP3EcualizadaLocalReplicada);
+title('Histograma Imagen P3 Ecualizada Local Replicada');
+
+subplot(2, 3, 5);
+imhist(imagenP3EcualizadaLocalCeros);
+title('Histograma Imagen P3 Ecualizada Local Ceros');
+
+subplot(2, 3, 6);
+imhist(imagenP3EcualizadaLocal5x5);
+title('Histograma Imagen P3 Ecualizada Local 5x5');
+
+% El brillo de todas las imágenes generadas ha aumentado con respecto
+% a la original, excepto el de la generada por ventanas 5x5 que ha
+% disminuido.
+
+% En cuanto al contraste, el de todas las imágenes generadas ha disminuido
+% aunque no de manera significativa.
+
+% Los histogramas de las imágenes generadas son más uniformes entre sí,
+% sin tanta separación de valores, excepto por las ecualizadas uniforme y
+% zonalmente.
+
